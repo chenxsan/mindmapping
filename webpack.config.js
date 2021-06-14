@@ -15,6 +15,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'MindMapping',
+      template: './src/index.html',
     }),
   ],
 }
