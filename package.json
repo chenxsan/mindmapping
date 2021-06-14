@@ -27,9 +27,13 @@
   "scripts": {
     "start": "webpack serve",
     "prettier": "prettier --write '**/*.{ts,tsx,js,json}'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:js": "npm run lint-js .",
+    "lint-js": "eslint"
   },
   "lint-staged": {
-    "*.{ts,tsx,js,json}": "prettier --write"
-  }
+    "*.{ts,tsx,js,json}": "prettier --write",
+    "*.{ts,tsx,js}": "npm run lint-js"
+  },
+  "dependencies": {}
 }
