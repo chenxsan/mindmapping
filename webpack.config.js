@@ -6,6 +6,11 @@ module.exports = {
       {
         test: /\.tsx?$/i,
         exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+          },
+        ],
       },
     ],
   },
