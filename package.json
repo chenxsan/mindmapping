@@ -35,5 +35,8 @@
     "*.{ts,tsx,js,json}": "prettier --write",
     "*.{ts,tsx,js}": "npm run lint-js"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
