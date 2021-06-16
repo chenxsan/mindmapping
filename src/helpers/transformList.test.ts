@@ -27,6 +27,25 @@ describe('transformList', () => {
     ])
   })
 
+  it('should transform multiple lists', () => {
+    expect(
+      transformList(`
+- root 1
+  - parent 1
+- root 2
+  - parent 2`)
+    ).toEqual([
+      {
+        title: 'root 1',
+        children: ['parent 1'],
+      },
+      {
+        title: 'root 2',
+        children: ['parent 2'],
+      },
+    ])
+  })
+
   it('should throw when list does not exist in the beginning', () => {
     expect(() =>
       transformList(`
