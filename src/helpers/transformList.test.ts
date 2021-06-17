@@ -11,19 +11,39 @@ describe('transformList', () => {
     - child 3
     - child 4`)
     ).toEqual([
-      {
-        title: 'root',
-        children: [
-          {
-            title: 'parent 1',
-            children: ['child 1', 'child 2'],
-          },
-          {
-            title: 'parent 2',
-            children: ['child 3', 'child 4'],
-          },
-        ],
-      },
+      [
+        {
+          title: 'root',
+          children: [
+            {
+              title: 'parent 1',
+              children: [
+                {
+                  title: 'child 1',
+                  children: [],
+                },
+                {
+                  title: 'child 2',
+                  children: [],
+                },
+              ],
+            },
+            {
+              title: 'parent 2',
+              children: [
+                {
+                  title: 'child 3',
+                  children: [],
+                },
+                {
+                  title: 'child 4',
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     ])
   })
 
@@ -32,24 +52,62 @@ describe('transformList', () => {
       transformList(`
 - root 1
   - parent 1
+
+# test
+
+hello world
+
 - root 2
   - parent 2`)
     ).toEqual([
-      {
-        title: 'root 1',
-        children: ['parent 1'],
-      },
-      {
-        title: 'root 2',
-        children: ['parent 2'],
-      },
+      [
+        {
+          title: 'root 1',
+          children: [
+            {
+              title: 'parent 1',
+              children: [],
+            },
+          ],
+        },
+      ],
+      [
+        {
+          title: 'root 2',
+          children: [
+            {
+              title: 'parent 2',
+              children: [],
+            },
+          ],
+        },
+      ],
     ])
   })
 
-  it('should throw when list does not exist in the beginning', () => {
-    expect(() =>
+  it('should transform input successfully', () => {
+    expect(
       transformList(`
-      # heading 1`)
-    ).toThrow()
+- hi
+  -`)
+    ).toEqual([
+      [
+        {
+          title: 'hi',
+          children: [],
+        },
+      ],
+    ])
+  })
+
+  it('should return []', () => {
+    expect(
+      transformList(`
+-`)
+    ).toEqual([])
+  })
+
+  it('should transform empty content', () => {
+    expect(transformList('')).toEqual([])
   })
 })
