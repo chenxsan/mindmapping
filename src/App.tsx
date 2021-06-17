@@ -14,12 +14,10 @@ function ParentNode({ title, children, color, root = false }: ParentNodeProps) {
     <div className={`flex items-center ${root === false && 'my-6'}`}>
       <div
         className={`border-solid mr-8 text-white ${
-          root === true
-            ? 'border border-white bg-gray-700 p-2'
-            : `border-b-4 px-2`
+          root === true ? 'border bg-[#141f16] p-2' : `border-b-4 px-2`
         }`}
         style={{
-          borderColor: root === false ? color : 'transparent',
+          borderColor: root === false ? color : 'white',
         }}
       >
         {title}
