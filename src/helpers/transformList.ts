@@ -17,7 +17,7 @@ function extractData(list: List): Data[] {
     }
   })
 }
-export default function transformInput(input: string): Data[][] | null {
+export default function transformList(input: string): Data[][] | null {
   try {
     const output: Root = fromMarkdown(input)
     const { children } = output
