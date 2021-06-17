@@ -1,33 +1,36 @@
 import * as fromMarkdown from 'mdast-util-from-markdown'
-import { List, Root } from 'mdast'
-interface Data {
+import { List, Root, ListItem } from 'mdast'
+export interface Data {
   title: string
-  children: (string | Data)[]
+  children: Data[]
 }
 function extractData(list: List): Data[] {
-  const { children: listItems } = list
-  const result = listItems.map((listItem) => {
-    const [paragraph, subList] = listItem.children
-    const title = paragraph.children[0].value
+  const listItems: ListItem[] = list.children
 
-    if (typeof subList === 'undefined') {
-      // leaf node
-      return title
-    } else {
-      return {
-        title: title,
-        children: extractData(subList as List),
-      }
+  return listItems.map((listItem) => {
+    const title = listItem.children[0]?.children[0]?.value
+    const subList = listItem.children[1]
+    return {
+      title,
+      children:
+        typeof subList === 'undefined' ? [] : extractData(subList as List),
     }
   })
-  return result
 }
-export default function transformInput(input: string): Data[] {
-  const output: Root = fromMarkdown(input)
-  const { children: tree } = output
-  // we only handle the first list in this specific case
-  const [list] = tree
-  const { type } = list
-  if (type !== 'list') throw new Error('List not found in the beginning')
-  return extractData(list as List)
+export default function transformList(input: string): Data[][] | null {
+  try {
+    const output: Root = fromMarkdown(input)
+    const { children } = output
+    const lists = children
+      .filter((t) => t.type === 'list')
+      .filter((list) => {
+        // validate list for its title
+        return list.children[0]?.children[0]
+      })
+    return lists.map((list) => extractData(list as List))
+  } catch (_err) {
+    // invalid data
+    // we don't want to show the chart
+    return null
+  }
 }

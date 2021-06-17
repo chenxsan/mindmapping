@@ -1,0 +1,5 @@
+{
+  "componentFolder": "src",
+  "testFiles": "**/*.ct.{ts,tsx}",
+  "video": false
+}
