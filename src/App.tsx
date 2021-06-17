@@ -1,6 +1,8 @@
 import * as React from 'react'
 import { schemeAccent } from 'd3-scale-chromatic'
 import transformList, { Data } from './helpers/transformList'
+import 'tailwindcss/tailwind.css'
+
 const { useState } = React
 
 interface ParentNodeProps {
