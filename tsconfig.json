@@ -1,3 +1,6 @@
 {
-  "exclude": ["src/**/*.ct.ts", "src/**/*.ct.tsx"]
+  "exclude": ["src/**/*.ct.ts", "src/**/*.ct.tsx"],
+  "compilerOptions": {
+    "jsx": "react-jsx"
+  }
 }
