@@ -13,7 +13,7 @@ interface ParentNodeProps {
 }
 function ParentNode({ title, children, color, root = false }: ParentNodeProps) {
   return (
-    <div className={`flex items-center ${root === false && 'my-6'}`}>
+    <div className={`flex items-center ${root === false ? 'my-6' : 'my-10'}`}>
       <div
         className={`border-solid mr-8 text-white ${
           root === true ? 'border bg-[#141f16] p-2' : `border-b-4 px-2`
