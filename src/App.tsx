@@ -65,7 +65,7 @@ function Tree(props: TreeProps) {
               {children.map((child, index) => {
                 const c = color ?? schemeAccent[index]
                 if (child.children.length === 0)
-                  return <LeafNode color={c} title={child.title} />
+                  return <LeafNode color={c} title={child.title} key={index} />
                 return (
                   <Tree key={index} data={[child]} root={false} color={c} />
                 )
