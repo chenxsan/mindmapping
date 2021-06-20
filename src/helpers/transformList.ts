@@ -21,12 +21,17 @@ export default function transformList(input: string): Data[][] | null {
   try {
     const output: Root = fromMarkdown(input)
     const { children } = output
-    const lists = children
-      .filter((t) => t.type === 'list')
-      .filter((list) => {
-        // validate list for its title
-        return list.children[0]?.children[0]
-      })
+    let lists: List[] = children.filter((t) => t.type === 'list') as List[]
+    if (lists.length === 1 && (lists[0] as List).children.length > 1) {
+      lists = (lists[0] as List).children.map((c) => ({
+        ...lists[0],
+        children: [c],
+      }))
+    }
+    lists = lists.filter((list) => {
+      // validate list for its title
+      return list.children[0]?.children[0]
+    })
     return lists.map((list) => extractData(list as List))
   } catch (_err) {
     // invalid data
