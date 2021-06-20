@@ -1,4 +1,5 @@
 import transformList from './transformList'
+import { describe, it, expect } from '@jest/globals'
 describe('transformList', () => {
   it('should transform list in markdown', () => {
     expect(
@@ -47,7 +48,7 @@ describe('transformList', () => {
     ])
   })
 
-  it('should transform multiple lists', () => {
+  it('should transform multiple lists with other items between', () => {
     expect(
       transformList(`
 - root 1
@@ -80,6 +81,28 @@ hello world
               children: [],
             },
           ],
+        },
+      ],
+    ])
+  })
+
+  it('should transform multiple lists', () => {
+    expect(
+      transformList(`
+- root 1
+
+- root 2`)
+    ).toEqual([
+      [
+        {
+          title: 'root 1',
+          children: [],
+        },
+      ],
+      [
+        {
+          title: 'root 2',
+          children: [],
         },
       ],
     ])
