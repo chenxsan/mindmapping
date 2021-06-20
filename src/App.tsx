@@ -86,7 +86,13 @@ function Tree(props: TreeProps) {
           >
             <div>
               {children.map((child, index) => {
-                const c = color ?? schemeAccent[index]
+                const c =
+                  color ??
+                  schemeAccent[
+                    index < schemeAccent.length
+                      ? index
+                      : index % schemeAccent.length
+                  ]
                 if (child.children.length === 0)
                   return (
                     <LeafNode
